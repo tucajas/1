@@ -279,6 +279,11 @@ GIT
 para clonar un repositorio se usa el comando:
  git clone y la direccion http
 
+para subir los cambios realizados en el archivo solo hay que hacer desde el paso 9
+git add .
+git commit -m "algo"
+git push -u http
+
 
 activar entorno virtual en la consola pythonanywhere uso este comando: source ~/virtualenvs/entornoconda/bin/activate
 
