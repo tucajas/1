@@ -171,6 +171,54 @@ ANGULAR
     • creamos el componente menu
     • creamos el componente encabezado
       
+ <mat-toolbar color="primary">
+  <button mat-icon-button (click)="desplegarMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>App para musicos</span>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxHide.xs>
+    <ul class="encabezado" fxLayout="row" fxLayoutGap="10px">
+      <li><a>Registrar</a></li>
+      <li><a>Login</a></li>
+      <li><a>Home</a></li>
+    </ul>
+  </div>
+</mat-toolbar>
+.En el encabezado.ts va el codigo que manda a llamar el toggle que esta en el padre 
+export class EncabezadoComponent {
+
+  @Output() menuToggle =new EventEmitter<void>();
+
+  constructor(){ }
+
+  ngOnInit(): void {
+
+  }
+  desplegarMenu():void{
+    this.menuToggle.emit();
+
+  }
+}
+.En el app.component html mando a llamar por un output al hijo haciendo un event emiter con el menu.toggle()
+
+<mat-sidenav-container>
+  <mat-sidenav #menu>
+    <p>elementosidenav</p>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-encabezado (menuToggle)="menu.toggle()"></app-encabezado>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+
 
 
 
