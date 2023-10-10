@@ -1,0 +1,221 @@
+﻿
+DJANGO
+
+
+    • Instalar conda , el conda contiene : django , django rest, pip, cors, y otros.
+    • Crear el entorno virtual con el siguiente comando: conda create -n nombreDelEntorno
+    • Activo el entorno virtual con el siguiente comando: conda activate nombreDelEntorno
+    • Creo un proyecto django con el siguiente comando:django-admin startproject nombreDelProyecto
+    • Creo una app adentro de django con el siguiente comando: python3 manage.py startapp nombreDelItem
+    • Creo la base de datos con el siguiente comando: python3 manage.py migrate
+    • Creo un super usuario con el siguiente comando: python3 manage.py createsuperuser
+    • Ejecuto la aplicación con el siguiente comando: python3 manage.py runserver
+    • En visual code creo un modelo en el archivo models.py:
+
+	class nombreModelo (models.Model):
+		descripcion = models.charfield(max_lenght=20)
+
+
+    • Registro el modelo en el archivo admin.py
+		
+	admin.site.register ( nombreModelo )
+
+
+    • Registro la app en el archivo setting.py
+
+
+	Installed_apps = 
+			[
+			‘nombreApp’ 
+					]
+	
+    • Creo un archivo llamado serializers.py ejemplo: nombreDelItemSerializer.py
+
+	from rest_framework import serializers
+	from nombreDelItem.models import nombreDelItem
+
+	class NombreDelItemSerializer(serializers.ModelSerializer):
+		Class Meta:
+		       Model = NombreDelItem
+		       fields = “__all__”
+    • Creo un archivo llamado view.py ejemplo: nombreDelItemView.py
+
+	from rest_framework import generics
+	from nombreDelItem.serializers import NombreDelItemSerializer
+	from nombreDelItem.models import NombreDelItem
+
+	class NombreDelItemList ( generics.ListCreateApiView):
+		queryset = NombreDelItem.objects.all()
+		serializer_class = NombreDelItemSerializer
+	
+	class NombreDelItemDetail(generics.retrieveUpdateDestroyAPIView):
+		queryset = NombreDelItem.objects.all()
+		serializer_class = NombreDelItemSerializer
+
+    • modificamos la url de la api
+
+from django conf.urls import path
+from NombreDelItem.views import NombreDelItem
+
+urlpatterns = [
+
+	path(‘lilst/’, NombreDelItem.as_view(), name=’NombreList’),
+	path(‘<int:pk>’,NombreDelItemDetail.as_view(), name=’NombreDetail’),
+]
+
+    • modifico la url general
+
+	path(‘NombreDelItem/’,include(‘NombreDelItem.urls’)),
+
+    • realizo makemigrations
+    • realizo migrate
+
+permisos de acceso 
+
+hay tres permisos de acceso: 
+active: son para los usuarios activos.
+Staff status: son para que puedan entrar django admin.
+Super user status: son para que puedan editar y borrar lo que quieran.
+
+En el url.py general coloco un path para logear con rest framework
+
+	utlpatterns = [
+			path(‘api-auth’ , include (‘rest.frameworkurls’),
+Ver video 34
+
+rest_framework = {
+			‘DEFAULT_PERMISSION_CLASES’:[
+					‘rest_framework.permissions.IsAuthenticated’,]
+}
+con el codigo que esta arriba no se puede entrar a nada si no esta logueado.
+
+Para dar permisos a solo logeados pero a las clases que elija yo tengo que adentro de la clase q quiera puedo poner el permiso q quiera.
+
+Class ItemList(generics.ListCreateAPIView):
+	permission_classes = [ IsAuthenticated]
+
+from res_framework.permissions import IsAuthenticated
+
+para crear mi propio permiso y lo aplico del mismo modo
+
+creao un archivo que se llama permissions.py
+from rest_framework import permissions
+
+class Item ( permissions.IsAdminUser):
+	def has_permissions(self,resquet,view):
+		if request.method == ‘GET’:
+			return TRUE
+	
+		Staff_permission= bool(request.user and request.user.is.staff):
+		return staff_permission
+
+from articulo.api.permissions import permisocreado
+
+class ItemList(generics.ListCreateAPIView):
+	permissions_classes = [ permisoCreado]
+
+el nuevo super user despues de esto en mi tp final es: tucajas@gmail.com y el pass es : 1302
+postgres clave tueiak23
+
+apunte ( importante instalar cors, corsheader en el django)
+agregar cors_allowed_origins=(‘http://localhost:4200’,’http://127.0.0.1:8000)
+
+
+
+ANGULAR
+
+    • creo un proyecto angular con el comando: ng new curriculum
+      
+		pregunta si quiero agregar el routing le digo que si
+		pregunta si quiero usar css o otros 
+
+    • abro la carpeta con el comando code . (code espacio punto)
+    • verifico la version de angular con el comando: ng version (comando en osx) 
+    • instalo el angular material adentro del proyecto con el siguiente comando: ng add @angular/material
+
+	indigo pink : yes
+	styles : yes
+	animacion : yes
+    • creamos un modulo con el nombre de la app donde adentro vamos a crear las carpetas home , listado, cliente etc y tiene un routing propio asi q cuando de se crea tiene que tener la finalizacion –routing.
+    • Creamos un componente de inicio en la altura de la app osea afuera de la carpeta nombre de la app, donde va a ir la pagina de inicio.
+    • creamos un modulo para poner todo lo de angular material con el comando : ng g m 
+      este solamente va a tener el modulo solamente donde va a exportar todas las importaciones de angular material.
+    • En el html del app component ponemos el router outlet
+    • modificamos las rutas en el archivo app routing
+
+	{
+		path: ‘’,
+		component: inicioComponent,
+	}
+	{
+		path: ‘ejemplo’,
+		component: loadChildren:() => import 				(‘./ejemplo/ejemplo.module’).then(m=>m.ejemploModule)
+	}
+
+    • modificamos el routing del modulo creado como item para hacer el lazyload
+	
+	[
+		{
+			path:’’,
+			component:homeComponent,
+			children:[
+					{
+						path:’ejemplo’,
+						component: ejemploComponent
+					}
+				]
+		}
+	]
+
+    • creamos una carpeta llamada shared donde se van a poner los componentes que se van a compartir como el menu y el encabezado y pie de pagina etc.
+    • creamos el componente menu
+    • creamos el componente encabezado
+      
+
+
+
+
+
+
+
+
+
+GIT 
+
+1-creamos un repositorio nuevo
+2-abrimos una consola y vamos al proyecto 
+3-corroboro git , git –version
+4-git config –global user.name tucajas
+5-git config –global user.email tucajas@gmail.com
+6-git config –global user.password  (se agrega el token)
+7-git init
+8-git add .
+9-git commit -m “subiendoproyecto”
+10-git branch -M main
+11-pegamos el link de copia 
+12-git push -u  origin main
+
+
+activar entorno virtual en la consola pythonanywhere uso este comando: source ~/virtualenvs/entornoconda/bin/activate
+
+ANGULAR MATERIAL IMPORTACIONES
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
