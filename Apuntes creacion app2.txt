@@ -308,3 +308,34 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+
+FIREBASE
+
+1-El primero comando que tengo que ejecutar en la consola de visual Code adentro del proyecto es este:
+
+npm run build --prod 
+
+Con esto genero la carpeta dist que es la que contiene los archivos estáticos que se van a subir.
+2-el segundo comando es una vez si esta instalado ya no lo voy a realizar , es la instalación de firebase cli:
+
+npm install -g firebase-tools
+
+3-el tercer comando que hay que ejecutar es:
+
+firebase login
+
+Que sirve para inicializar el proyecto.
+
+4-el cuarto comando es:
+
+firebase init
+
+5-hay que ingresar el directorio correcto de distintos
+ 
+	dist/tp-final
+6-y
+7-n
+8-n
+9- firebase deploy
+
+
